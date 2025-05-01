@@ -6,8 +6,25 @@ import 'package:gaphy_mobile_app/presentation/common/primary_button.dart';
 import 'package:gaphy_mobile_app/presentation/features/login/view_model/login_provider.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+   LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +63,7 @@ class LoginScreen extends StatelessWidget {
                   height: 6.h,
                 ),
                 TextFormField(
+                  controller: _emailController,
                   decoration: InputDecoration(hintText: "Enter your email"),
                 ),
                 SizedBox(
@@ -59,6 +77,7 @@ class LoginScreen extends StatelessWidget {
                 Consumer<LoginProvider>(
                   builder: (context,loginProvider,child) {
                     return TextFormField(
+                      controller: _passwordController,
                       obscureText: !loginProvider.isVisible ,
                       decoration: InputDecoration(
                           hintText: "******",
