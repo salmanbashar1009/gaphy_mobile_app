@@ -44,4 +44,9 @@ class Data {
     map['refreshToken'] = refreshToken;
     return map;
   }
+
+  @override
+  String toString() {
+    return 'Data(token: $accessToken, refreshToken: $refreshToken)';
+  }
 }

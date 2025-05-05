@@ -7,9 +7,6 @@ class LoginProvider extends ChangeNotifier {
   bool _isLoginInProgress = false;
   bool get isLoginInProgress => _isLoginInProgress;
 
-  LoginDataModel _loginData = LoginDataModel();
-  LoginDataModel get loginData => _loginData;
-
   bool _isVisible = false;
   bool get isVisible => _isVisible;
 
@@ -33,17 +30,22 @@ class LoginProvider extends ChangeNotifier {
     };
 
     try {
-      final response = await ApiServices.postAPICall(Urls.login, requestBody);
+       final response = await ApiServices.postAPICall(Urls.login, requestBody);
 
-      if (response.statusCode == 200) {
-        // TODO: Properly map response.data into LoginDataModel
-        // _loginData = response.data;
-        debugPrint("Data Loaded Successfully: ${response.statusMessage}");
-      } else {
+       if (response.statusCode == 200 && response.data != null) {
+         final dataMap = response.data is Map<String, dynamic>
+             ? response.data
+             : Map<String, dynamic>.from(response.data);
+
+         LoginDataModel model = LoginDataModel.fromJson(dataMap);
+         debugPrint("Data Loaded Successfully: ${response.statusMessage}");
+         debugPrint("User : ${model.data}");
+       } else {
         debugPrint("Failed to fetch data. Status code: ${response.statusCode}");
       }
     } catch (e) {
       debugPrint("Login request failed with error: $e");
+
     } finally {
       _isLoginInProgress = false;
       notifyListeners();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gaphy_mobile_app/presentation/features/login/view/feed_screen.dart';
 import 'package:gaphy_mobile_app/presentation/features/login/view/login_screen.dart';
 import 'package:gaphy_mobile_app/presentation/theme/app_theme.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child:  LoginScreen(),
+      child:  FeedScreen(),
     );
   }
 }
